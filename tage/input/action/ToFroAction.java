@@ -15,14 +15,16 @@ import net.java.games.input.Event;
 		//Constructor sets direction of transale based on 'isLeft' (1 or -1)
 		public ToFroAction(myGame g, boolean isBwd)
 		{ 	game = g;
+			lastTime=0.0;
 			if (isBwd){direction *=(-1);}
-			
-			System.out.println(mapSize);
 		}
 		@Override
 		public void performAction(float time, Event e)
-		{	checkBounds();
+		{
+			float elapsedTime = time-lastTime;
 			float keyValue = e.getValue();
+			System.out.println(elapsedTime);
+			checkBounds();
 			if (keyValue > -.2 && keyValue < .2) return;
 			float movement = movementSpeed * direction * keyValue;
 			if(e.getComponent().toString().toLowerCase().contains("axis")) {
